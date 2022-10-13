@@ -12,7 +12,7 @@ tTot=10*1000
 B=2
 Q=int(1e6)
 dt=tTot/Q
-p=1
+p=2
 
 def phiSEN(t):
     #counter clockwise path
@@ -51,13 +51,23 @@ def solution(gVal,betaVal,gammaVal):
     rst=sorted(realRoots)
     return rst
 
+def x2E(x,gVal,betaVal):
+    """
 
+    :param x:
+    :param gVal:
+    :param betaVal:
+    :return: transform x to E for p=2
+    """
+    E=(1/4*gVal*x**3+betaVal)/x+3/4*gVal
+
+    return E
 
 def E2x(gVal,betaVal,gammaVal):
     #choose the value of x based on the value of E
     xs=solution(gVal,betaVal,gammaVal)
 
-    EVals=[betaVal/x+gVal for x in xs]
+    EVals=[x2E(x,gVal,betaVal) for x in xs]
     indsOfE=np.argsort(EVals)#ascending order
 
     if gVal>0:
@@ -272,7 +282,7 @@ def evolutionSEN(gVal):
     gamma0=gamma(k10,k20)
     beta0=beta(k10,k20)
     psi0=initVec(gVal,beta0,gamma0)
-    print([np.abs(psi0[0]),np.abs(psi0[1])])
+    # print([np.abs(psi0[0]),np.abs(psi0[1])])
     psiAllSEN=[psi0]
     for q in range(0,Q):
         psiAllSEN.append(oneStepSEN(q,gVal,psiAllSEN[q]))
@@ -323,14 +333,14 @@ def circularPhase(gVal):
 
 # #one value
 # tStart=datetime.now()
-# gVal=3*B
+# gVal=1.2*B
 # td,AB=circularPhase(gVal)
 #
 # tEnd=datetime.now()
 # print("one round time: ",tEnd-tStart)
 #
 # print((td/np.pi))
-# print((td/np.pi)-2*B/gVal)
+# print((td/np.pi)-4*B/gVal)
 
 # multiprocessing
 

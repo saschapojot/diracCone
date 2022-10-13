@@ -12,7 +12,7 @@ tTot=10*1000
 B=2
 Q=int(1e6)
 dt=tTot/Q
-p=1
+p=3
 
 def phiSEN(t):
     #counter clockwise path
@@ -41,7 +41,8 @@ def gamma(k1Val,k2Val):
 
 def solution(gVal,betaVal,gammaVal):
     #solve real values of x, sorted from small to large (with sign)
-    inList=[gVal**2,4*betaVal*gVal,4*betaVal**2-gVal**2+4*np.abs(gammaVal)**2,-4*betaVal*gVal,-4*betaVal**2]
+    inList=[gVal**2,0,5*gVal**2,16*betaVal*gVal,3*gVal**2,32*betaVal*gVal,64*betaVal**2+64*np.abs(gammaVal)**2-9*gVal**2\
+            ,-48*betaVal*gVal,-64*betaVal**2]
     roots=np.roots(inList)
 
     realRoots=[]
@@ -51,13 +52,23 @@ def solution(gVal,betaVal,gammaVal):
     rst=sorted(realRoots)
     return rst
 
+def x2E(x,gVal,betaVal):
+    """
 
+    :param x:
+    :param gVal:
+    :param betaVal:
+    :return: transform x to E for p=3
+    """
+    E=betaVal/x+1/2*gVal+1/2*gVal*x**2
+
+    return E
 
 def E2x(gVal,betaVal,gammaVal):
     #choose the value of x based on the value of E
     xs=solution(gVal,betaVal,gammaVal)
 
-    EVals=[betaVal/x+gVal for x in xs]
+    EVals=[x2E(x,gVal,betaVal) for x in xs]
     indsOfE=np.argsort(EVals)#ascending order
 
     if gVal>0:
@@ -272,7 +283,7 @@ def evolutionSEN(gVal):
     gamma0=gamma(k10,k20)
     beta0=beta(k10,k20)
     psi0=initVec(gVal,beta0,gamma0)
-    print([np.abs(psi0[0]),np.abs(psi0[1])])
+    # print([np.abs(psi0[0]),np.abs(psi0[1])])
     psiAllSEN=[psi0]
     for q in range(0,Q):
         psiAllSEN.append(oneStepSEN(q,gVal,psiAllSEN[q]))
@@ -323,14 +334,25 @@ def circularPhase(gVal):
 
 # #one value
 # tStart=datetime.now()
-# gVal=3*B
+# gVal=1.2*B
 # td,AB=circularPhase(gVal)
 #
 # tEnd=datetime.now()
 # print("one round time: ",tEnd-tStart)
-#
+
+# solve x0
+# coefs=[gVal,0,3*gVal,8*B]
+# rts=np.roots(coefs)
+# x0=0
+# for elem in rts:
+#     if np.abs(np.imag(elem))<1e-8 and np.abs(np.real(elem))<=1:
+#         x0=np.real(elem)
+# numericalTd=4*gVal*(B/gVal*x0+2*B**2/gVal**2)/(B*x0**2-gVal*x0-3*B)
+
+
+
 # print((td/np.pi))
-# print((td/np.pi)-2*B/gVal)
+# print((td/np.pi)-numericalTd)
 
 # multiprocessing
 
