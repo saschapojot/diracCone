@@ -338,7 +338,7 @@ def wrapper(gVal):
     return [gVal,circularPhase(gVal)]
 
 
-gValsAll=np.linspace(-10,10,500)
+gValsAll=np.linspace(-10*B,10*B,100)
 procNum=24
 pool0=Pool(procNum)
 

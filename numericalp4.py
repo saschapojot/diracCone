@@ -5,14 +5,14 @@ from scipy.linalg import expm
 from datetime import datetime
 from multiprocessing import Pool
 import pandas as pd
-#this script computes dynamical, Berry and AB phases for p=1
-
+#this script computes dynamical, Berry and AB phases for p=4
+# change solution() function and x2E() for every p
 r=1e-4
 tTot=10*1000
 B=2
 Q=int(1e6)
 dt=tTot/Q
-p=2
+p=4
 
 def phiSEN(t):
     #counter clockwise path
@@ -41,7 +41,8 @@ def gamma(k1Val,k2Val):
 
 def solution(gVal,betaVal,gammaVal):
     #solve real values of x, sorted from small to large (with sign)
-    inList=[gVal**2,4*betaVal*gVal,4*betaVal**2-gVal**2+4*np.abs(gammaVal)**2,-4*betaVal*gVal,-4*betaVal**2]
+    inList=[gVal**2,0,gVal**2,8*betaVal*gVal,-gVal**2,0,16*betaVal**2+16*np.abs(gammaVal)**2-gVal**2\
+          ,-8*betaVal*gVal,-16*betaVal**2]
     roots=np.roots(inList)
 
     realRoots=[]
@@ -57,9 +58,9 @@ def x2E(x,gVal,betaVal):
     :param x:
     :param gVal:
     :param betaVal:
-    :return: transform x to E for p=2
+    :return: transform x to E for p=4
     """
-    E=(1/4*gVal*x**3+betaVal)/x+3/4*gVal
+    E=betaVal/x+1/16*gVal*x**4+5/8*gVal*x**2+5/16*gVal
 
     return E
 
@@ -333,14 +334,17 @@ def circularPhase(gVal):
 
 # #one value
 # tStart=datetime.now()
-# gVal=1.2*B
+# gVal=2.01*B
 # td,AB=circularPhase(gVal)
 #
 # tEnd=datetime.now()
 # print("one round time: ",tEnd-tStart)
 #
+#
+#
+#
 # print((td/np.pi))
-# print((td/np.pi)-4*B/gVal)
+# print((AB/np.pi))
 
 # multiprocessing
 
