@@ -21,6 +21,12 @@ typeInf=beta**2-(beta**2+gamma**2)*x**2+2**(-p)*beta*g*x**2*(1-x)**p-2**(-p)*bet
     -2**(-2*p-2)*g**2*x**2*(1+x)**(2*p)+2**(-2*p-2)*g**2*(1-x)**(2*p)\
     +2**(-2*p-2)*g**2*(1+x)**(2*p)
 
+#for factorization, we let gamma=0
+factorization=-2**(-p-2)*(x+1)*(x-1)*(2**(p+2)*beta**2-4*beta*g*(1-x)**p+4*beta*g*(1+x)**p\
+                                      +2**(-p)*g**2*(1-x)**(2*p)+2**(-p)*g**2*(1+x)**(2*p)-2**(1-p)*g**2*(1-x**2)**p)
+
+doubleFactor=2**(p+2)*beta**2-4*beta*g*(1-x)**p+4*beta*g*(1+x)**p\
+                                      +2**(-p)*g**2*(1-x)**(2*p)+2**(-p)*g**2*(1+x)**(2*p)-2**(1-p)*g**2*(1-x**2)**p
 
 
 df=diff(rst,x)
