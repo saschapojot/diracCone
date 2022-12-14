@@ -141,7 +141,7 @@ def EPerturbative(p,k2Val,g,s):
 
 
 
-p=2
+p=1.5
 
 def scanFullNumericalRoots(gk2):
     """
@@ -170,16 +170,16 @@ def scanFullNumericalRoots(gk2):
 
 
 
-dk2Small=0.005
-end=0.02
-smallK2All=np.arange(-end,end+dk2Small,dk2Small)*np.pi
+# dk2Small=0.005
+# end=0.02
+# smallK2All=np.arange(-end,end+dk2Small,dk2Small)*np.pi
 
 ##################################################################
 #|g|>2B
 
-# g=-5
-#
-# #perturbative solutions
+g=2.5*B
+
+#perturbative solutions
 # ESmallK2Plus=[]
 # k2Plus=[]
 # ESmallK2Minus=[]
@@ -198,22 +198,22 @@ smallK2All=np.arange(-end,end+dk2Small,dk2Small)*np.pi
 #
 # tPerturbativeEnd=datetime.now()
 # print("perturbative time: ",tPerturbativeEnd-tPerturbativeStart)
-#
+
 # ESmallK2Plus=np.array(ESmallK2Plus)
 # ESmallK2Minus=np.array(ESmallK2Minus)
 #########################################################
 ########################################################
 ##|g|<=2B
-g=1*B
-if g>0 and g<=2*B:
-    x0=-1
-if g<0 and g>=-2*B:
-    x0=1
-
-k1=0
-k2=0
-betaVal=beta(k1,k2)
-ERedPoint=x2E(p,betaVal,g,x0)
+# g=2*B
+# if g>0 and g<=2*B:
+#     x0=-1
+# if g<0 and g>=-2*B:
+#     x0=1
+#
+# k1=0
+# k2=0
+# betaVal=beta(k1,k2)
+# ERedPoint=x2E(p,betaVal,g,x0)
 
 
 #######################################################
@@ -225,7 +225,7 @@ tFullStart=datetime.now()
 procNum=48
 pool0=Pool(procNum)
 ret=pool0.map(scanFullNumericalRoots,inFull)
-
+# ret=[]
 tFullEnd=datetime.now()
 print("full time: ",tFullEnd-tFullStart)
 pltFullk2=[]
@@ -241,23 +241,30 @@ outDir="./spectrump"+str(p)+"/"
 
 pltFullE=np.array(pltFullE)
 Path(outDir).mkdir(exist_ok=True,parents=True)
+outData=np.array([pltFullk2,pltFullE]).T
 
-plt.figure()
+pdOut=pd.DataFrame(data=outData,columns=["k","E"])
+pdOut.to_csv(outDir+"g"+str(g/B)+"B.csv",index=False)
+
 ftSize=16
+tickSize=14
 ##full solution
-
-plt.scatter(pltFullk2,pltFullE/B,s=7,c="blue",label="numerical solution")
-plt.xlabel("$k_{2}/\pi$",fontsize=ftSize)
-plt.ylabel("$E/B$",fontsize=ftSize)
-plt.title("$p=$"+str(p)+", $g/B=$"+str(g/B),fontsize=ftSize)
-
-#perturbative solution for |g|>2B
-# plt.scatter(k2Plus,ESmallK2Plus/B,color="red",s=10,label="pertubative solution")
-# plt.scatter(k2Minus,ESmallK2Minus/B,color="red",s=10)
-
+#
+# ax.scatter(pltFullk2,pltFullE/B,s=7,c="blue",label="numerical solution")
+# ax.set_xlabel("$k_{2}/\pi$",fontsize=ftSize,labelpad=2)
+# ax.set_ylabel("$E/B$",fontsize=ftSize)
+# ax.set_title("$p=$"+str(p)+", $g/B=$"+str(g/B),fontsize=ftSize)
+# ax.tick_params(axis='both', which='major', labelsize=tickSize)
+# #perturbative solution for |g|>2B
+# ax.scatter(k2Plus,ESmallK2Plus/B,color="red",s=10,label="pertubative solution")
+# ax.scatter(k2Minus,ESmallK2Minus/B,color="red",s=10)
+# x1=-0.1
+# y1=1.01
+# ax.text(x1,y1,"(e)",transform=ax.transAxes,
+#             size=ftSize-4)#numbering
 #perturbative solution for |g|<=2B
-plt.scatter(0,ERedPoint/B,color="red",s=10,label="pertubative solution")
-lgnd =plt.legend(loc="best",fontsize=ftSize-2)
-lgnd.legendHandles[0]._sizes = [30]
-lgnd.legendHandles[1]._sizes = [30]
-plt.savefig(outDir+"g"+str(g/B)+"B.png")
+# ax.scatter(0,ERedPoint/B,color="red",s=10,label="pertubative solution")
+# lgnd =plt.legend(loc="best",fontsize=ftSize-2)
+# lgnd.legendHandles[0]._sizes = [30]
+# lgnd.legendHandles[1]._sizes = [30]
+# plt.savefig(outDir+"g"+str(g/B)+"B.png")

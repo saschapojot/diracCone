@@ -51,33 +51,34 @@ def solution(p,k1Val,k2Val,gVal):
 
     def f(x):
         #eqn of x
-        return betaVal**2-(betaVal**2+gamma2Val)*x**2+2**(-p)*betaVal*gVal*x**2*(1-x)**p-2**(-p)*betaVal*gVal*x**2*(1+x)**p\
+        return np.abs(betaVal**2-(betaVal**2+gamma2Val)*x**2+2**(-p)*betaVal*gVal*x**2*(1-x)**p-2**(-p)*betaVal*gVal*x**2*(1+x)**p\
     -2**(-p)*betaVal*gVal*(1-x)**p+2**(-p)*betaVal*gVal*(1+x)**p+2**(-2*p-1)*gVal**2*x**2*(1-x**2)**p\
     -2**(-2*p-1)*gVal**2*(1-x**2)**p-2**(-2*p-2)*gVal**2*x**2*(1-x)**(2*p)\
     -2**(-2*p-2)*gVal**2*x**2*(1+x)**(2*p)+2**(-2*p-2)*gVal**2*(1-x)**(2*p)\
-    +2**(-2*p-2)*gVal**2*(1+x)**(2*p)
+    +2**(-2*p-2)*gVal**2*(1+x)**(2*p))**2
 
 
-    def jac(x):
-        #derivative of eqn of x
-        return -2*(betaVal**2+gamma2Val)*x-2**(-p)*betaVal*gVal*p*x**2*(1+x)**(p-1)-2**(-p)*betaVal*gVal*p*x**2*(1-x)**(p-1)\
-    +2**(-p)*betaVal*gVal*p*(1+x)**(p-1)+2**(-p)*betaVal*gVal*p*(1-x)**(p-1)+2**(1-p)*betaVal*gVal*x*(1-x)**p\
-    -2**(1-p)*betaVal*gVal*x*(1+x)**p-2**(-2*p+1)*gVal**2*p*x**3*(1-x**2)**(p-1)\
-    -2**(-2*p-1)*gVal**2*p*x**2*(1-x)**p*(1+x)**(p-1)+2**(-2*p-1)*gVal**2*p*x**2*(1-x)**(p-1)*(1+x)**p\
-    -2**(-2*p-1)*gVal**2*p*(1-x)**p*(1+x)**(p-1)+2**(-2*p-1)*gVal**2*p*(1-x)**(p-1)*(1+x)**p\
-    +2**(1-2*p)*gVal**2*x*(1-x**2)**p-2**(-2*p)*gVal**2*x*(1-x)**p*(1+x)**p\
-    -2**(-2*p-1)*gVal**2*p*x**2*(1+x)**(2*p-1)+2**(-2*p-1)*gVal**2*p*x**2*(1-x)**(2*p-1)\
-    +2**(-2*p-1)*gVal**2*p*(1+x)**(2*p-1)-2**(-2*p-1)*gVal**2*p*(1-x)**(2*p-1)\
-    -2**(-2*p-1)*gVal**2*x*(1-x)**(2*p)-2**(-2*p-1)*gVal**2*x*(1+x)**(2*p)
+    # def jac(x):
+    #     #derivative of eqn of x
+    #     return -2*(betaVal**2+gamma2Val)*x-2**(-p)*betaVal*gVal*p*x**2*(1+x)**(p-1)-2**(-p)*betaVal*gVal*p*x**2*(1-x)**(p-1)\
+    # +2**(-p)*betaVal*gVal*p*(1+x)**(p-1)+2**(-p)*betaVal*gVal*p*(1-x)**(p-1)+2**(1-p)*betaVal*gVal*x*(1-x)**p\
+    # -2**(1-p)*betaVal*gVal*x*(1+x)**p-2**(-2*p+1)*gVal**2*p*x**3*(1-x**2)**(p-1)\
+    # -2**(-2*p-1)*gVal**2*p*x**2*(1-x)**p*(1+x)**(p-1)+2**(-2*p-1)*gVal**2*p*x**2*(1-x)**(p-1)*(1+x)**p\
+    # -2**(-2*p-1)*gVal**2*p*(1-x)**p*(1+x)**(p-1)+2**(-2*p-1)*gVal**2*p*(1-x)**(p-1)*(1+x)**p\
+    # +2**(1-2*p)*gVal**2*x*(1-x**2)**p-2**(-2*p)*gVal**2*x*(1-x)**p*(1+x)**p\
+    # -2**(-2*p-1)*gVal**2*p*x**2*(1+x)**(2*p-1)+2**(-2*p-1)*gVal**2*p*x**2*(1-x)**(2*p-1)\
+    # +2**(-2*p-1)*gVal**2*p*(1+x)**(2*p-1)-2**(-2*p-1)*gVal**2*p*(1-x)**(2*p-1)\
+    # -2**(-2*p-1)*gVal**2*x*(1-x)**(2*p)-2**(-2*p-1)*gVal**2*x*(1+x)**(2*p)
 
-    dx=1e-3
+    dx=1e-2
     scanX=np.linspace(-1+dx,1-dx,int(2/dx))
     solutionSet=set()
     for x0 in scanX:
-        sol=root(fun=f,x0=x0,jac=jac,method="hybr",tol=1e-10)
+        sol=root(fun=f,x0=x0,method="hybr",tol=1e-10)
         success=sol.success
         funVal=sol.fun[0]
-        if success and np.abs(funVal)<1e-10:
+        # if success and np.abs(funVal)<1e-10:
+        if success:
             solutionSet.add(round(sol.x[0],8))
 
     return list(solutionSet)
@@ -113,6 +114,9 @@ def E2x(p,k1Val,k2Val,gVal):
 
     x=xs[indx]
     E=EVals[indx]
+    # print("choose x="+str(x)+", choose E="+str(E))
+    # Ecomp=x2E(p,betaVal,gVal,x)
+    # print("computation E="+str(Ecomp))
     signal=True
 
     return [signal,E,x]
@@ -126,7 +130,9 @@ def initVec(p,k1Val,k2Val,gVal):
     psi1=np.sqrt(1/2+1/2*x)
     betaVal=beta(k1Val,k2Val)
     gammaVal=gamma(k1Val,k2Val)
-    psi2 = (E - betaVal - gVal * np.abs(psi1) ** (2 * p)) / gammaVal * psi1
+    # psi2 = (E - betaVal - gVal * np.abs(psi1) ** (2 * p)) / gammaVal * psi1
+    angleTmp=np.angle((E - betaVal - gVal * np.abs(psi1) ** (2 * p)) / gammaVal * psi1)
+    psi2=np.sqrt(1/2-1/2*x)*np.exp(1j*angleTmp)
     return np.array([psi1, psi2])
 
 
@@ -359,6 +365,7 @@ def wrapper(gValp):
 
 
 gValsAll=np.linspace(-10*B,10*B,500)
+# gValsAll=[0.1*B]
 gValsAllAndp=[[gVal,p] for gVal in gValsAll]
 
 procNum=24

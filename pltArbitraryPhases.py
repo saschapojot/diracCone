@@ -61,7 +61,7 @@ ax1.set_xticks(xTicks)
 
 ax1.yaxis.set_label_position("right")
 ax1.set_ylabel("dynamical phase$/\pi$",fontsize=ftSize)
-ax1.set_ylim((min(thetaDValsAll/np.pi)*1.1,max(thetaDValsAll/np.pi)*1.1))
+# ax1.set_ylim((min(thetaDValsAll/np.pi)*1.1,max(thetaDValsAll/np.pi)*1.1))
 ax1.set_yticks(np.linspace(min(thetaDValsAll/np.pi),max(thetaDValsAll/np.pi),5))
 plt.savefig(inDir+"p"+str(p)+"dynamicalPhase.png")
 plt.close()

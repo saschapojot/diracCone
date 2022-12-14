@@ -42,10 +42,8 @@ plt.xlabel("$g/B$",fontsize=ftSize)
 plt.ylabel("Dynamical phase$/\pi$",fontsize=ftSize)
 plt.legend(loc="best")
 plt.title("Dynamical phase for $p=1,2,3$",fontsize=ftSize)
-plt.hlines(y=0, xmin=-n, xmax=n, linewidth=0.05, color='k',linestyles="dotted")
+plt.hlines(y=0, xmin=-n, xmax=n, linewidth=0.5, color='k',linestyles="dotted")
 
-# plt.scatter(gVals,thDp1,label="$p=1$",color="red")
-# plt.scatter(gVals,thDp2,label="$p=2$",color="green")
-# plt.scatter(gVals,thDp3,label="$p=3$",color="blue")
-plt.savefig("dynamicalPhase.eps")
+
+plt.savefig("dynamicalPhase.png")
 plt.close()

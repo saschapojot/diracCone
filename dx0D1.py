@@ -3,8 +3,8 @@ from sympy import *
 from scipy.optimize import root
 import  numpy as np
 B,g,p,x0=symbols("B,g,p,x0",cls=Symbol)
-p=2
-B=2
+# p=2
+# B=2
 g=2**(1+p)*B/((1-x0)**p-(1+x0)**p)
 
 
@@ -41,6 +41,7 @@ dx0D1=diff(D1,x0)
 # pprint(td.evalf())
 
 ###########################Sj and Rj terms
+# B=2
 
 ###Sj terms
 S1=B*p*((1+x0)**(p-1)+(1-x0)**(p-1))*(-(1-x0)**(p+1)+(1+x0)**(p+1))/(x0*((1-x0)**p-(1+x0)**p)**2)
@@ -68,3 +69,7 @@ R4=-2*B*p*(1-x0)**p/((1-x0)**p-(1+x0)**p)
 R5=2*B*p*(p+1)*(1+x0)**p/((1-x0)**p-(1+x0)**p)
 
 
+epsilon=symbols("epsilon",cls=Symbol)
+
+rst=S6.subs(x0,1-epsilon)
+pprint(rst)

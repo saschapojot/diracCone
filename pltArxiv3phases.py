@@ -119,7 +119,7 @@ for j in range(0,len(pVals)):
                 color=colors[j], s=4)
 
 ftSize=17
-ax1.set_xticks(np.arange(-10,11,2))
+
 ax1.set_xlim((-10,10))
 ax1.axhline(y=2, color='black', linestyle='--')
 ax1.axhline(y=-2, color='black', linestyle='--')
@@ -129,6 +129,8 @@ ax1.legend(loc="best")
 ax1.set_xlabel("$g/B$", fontsize=ftSize)
 ax1.set_ylabel("$\delta\\theta_{D}/\pi$",fontsize=ftSize)
 ax1.set_yticks([-2,-1,0,1,2])
+ax1.set_xticks(range(-10,14,4))
+ax1.tick_params(axis='both', which='major', labelsize=ftSize-3)
 ax1.text(x0, y0, "(a)", transform=ax1.transAxes,
             size=ftSize-2)
 plt.savefig(outDir+"thetaD.pdf")
@@ -164,6 +166,9 @@ for j in range(0,len(pVals)):
 
 ax2.set_xticks(np.arange(-10,11,2))
 ax2.set_xlim((-10,10))
+ax2.set_xticks(range(-10,14,4))
+ax2.set_yticks([-0.8,-0.4,0,0.4,0.8])
+ax2.tick_params(axis='both', which='major', labelsize=ftSize-3)
 
 ax2.legend(loc="best")
 ax2.set_xlabel("$g/B$", fontsize=ftSize)
@@ -227,8 +232,9 @@ def shiftPhaseForp1(phaseVec):
 
 ax3.scatter(np.array(inDataAll[j1].iloc[selected, 0]) / B, shiftPhaseForp1(np.array(inDataAll[j1].iloc[selected, 2]) / np.pi),
                 color=colors[j1], s=4)
-ax3.set_xticks(np.arange(-10,11,2))
+ax3.set_xticks(np.arange(-10,14,4))
 ax3.set_xlim((-10,10))
+ax3.tick_params(axis='both', which='major', labelsize=ftSize-3)
 
 ax3.legend(loc="best")
 ax3.set_xlabel("$g/B$", fontsize=ftSize)

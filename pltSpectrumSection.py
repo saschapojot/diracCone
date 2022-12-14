@@ -134,7 +134,7 @@ def EPerturbative(p,k2Val,g,s):
              -B/x0**2)*xnVal
     return [True,EVal]
 
-p=2
+p=1.5
 
 dk2Small=0.005
 end=0.02
@@ -143,7 +143,7 @@ smallK2All=np.arange(-end,end+dk2Small,dk2Small)*np.pi
 ##################################################################
 #|g|>2B
 #perturbative solutions
-# g=-2.5*B
+# g=2.5*B
 # ESmallK2Plus=[]
 # k2Plus=[]
 # ESmallK2Minus=[]
@@ -202,13 +202,13 @@ ax.text(x1,y1,"(d)",transform=ax.transAxes,
 ##########################################
 ##############################################################
 # #perturbative solution for |g|>2B
-# ax.scatter(k2Plus,ESmallK2Plus/B,color="red",s=10,label="pertubative solution")
-# ax.scatter(k2Minus,ESmallK2Minus/B,color="red",s=10)
+# ax.scatter(k2Plus,ESmallK2Plus/B,color="red",s=25)
+# ax.scatter(k2Minus,ESmallK2Minus/B,color="red",s=25)
 ################################
-#perturbative solution for |g|<=2B
-ax.scatter(0,ERedPoint/B,color="red",s=10,label="pertubative solution")
+# perturbative solution for |g|<=2B
+ax.scatter(0,ERedPoint/B,color="red",s=25)
 ##############################################
-lgnd =plt.legend(loc="best",fontsize=ftSize-2)
-lgnd.legendHandles[0]._sizes = [30]
-lgnd.legendHandles[1]._sizes = [30]
+# lgnd =plt.legend(loc="best",fontsize=ftSize-2)
+# lgnd.legendHandles[0]._sizes = [30]
+# lgnd.legendHandles[1]._sizes = [30]
 plt.savefig(inDir+"g"+str(g/B)+"B.pdf")

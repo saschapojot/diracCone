@@ -46,18 +46,18 @@ def scanRoots(g):
             for elem in rts:
                 k2Ret.append(k2/np.pi)
                 rootsRet.append(elem)
-    return k2Ret,rootsRet
+    return np.array(k2Ret),np.array(rootsRet)
 
 
-g=4
+g=-5
 pltK2,pltRoots=scanRoots(g)
 
 ftSize=16
 
 plt.figure()
-plt.scatter(pltK2,pltRoots,s=0.05,c="blue",label="analytic solution")
+plt.scatter(pltK2,pltRoots/B,s=0.05,c="blue",label="numerical solution")
 plt.xlabel("$k_{2}/\pi$",fontsize=ftSize)
-plt.ylabel("$E$",fontsize=ftSize)
+plt.ylabel("$E/B$",fontsize=ftSize)
 plt.title("$g/B=$"+str(g/B),fontsize=ftSize)
 
 #perturbative solution for |g|>2B
@@ -79,16 +79,17 @@ end=0.02
 smallK2Coef=np.arange(-end,end+dk2,dk2)
 smallK2All=smallK2Coef*np.pi
 #|g|>2B
-# ESmallk2Plus=[EPlus(k2) for k2 in smallK2All]
-# ESmallk2Minus=[EMinus(k2) for k2 in smallK2All]
-# plt.scatter(smallK2Coef,ESmallk2Plus,color="red",s=10,label="pertubative solution")
-# plt.scatter(smallK2Coef,ESmallk2Minus,color="red",s=10)
+ESmallk2Plus=[EPlus(k2)/B for k2 in smallK2All]
+ESmallk2Minus=[EMinus(k2)/B for k2 in smallK2All]
+
+plt.scatter(smallK2Coef,ESmallk2Plus,color="red",s=10,label="pertubative solution")
+plt.scatter(smallK2Coef,ESmallk2Minus,color="red",s=10)
 
 #|g|<=2B
-EflatPlus=B+g
-EflatMinus=-B+g
+EflatPlus=(B+g)/B
+EflatMinus=(-B+g)/B
 
-plt.scatter(0,EflatPlus,color="red",s=10,label="pertubative solution")
+# plt.scatter(0,EflatPlus,color="red",s=10,label="pertubative solution")
 
 plt.scatter(0,EflatMinus,color="red",s=10)
 

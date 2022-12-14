@@ -15,6 +15,7 @@ eqn=-gamma**2+E**2-g*E*((half+half*x)**p+(half-half*x)**p)-beta**2\
 
 rst=(x**2*eqn).expand()
 
+
 typeInf=beta**2-(beta**2+gamma**2)*x**2+2**(-p)*beta*g*x**2*(1-x)**p-2**(-p)*beta*g*x**2*(1+x)**p\
     -2**(-p)*beta*g*(1-x)**p+2**(-p)*beta*g*(1+x)**p+2**(-2*p-1)*g**2*x**2*(1-x**2)**p\
     -2**(-2*p-1)*g**2*(1-x**2)**p-2**(-2*p-2)*g**2*x**2*(1-x)**(2*p)\
@@ -27,6 +28,7 @@ factorization=-2**(-p-2)*(x+1)*(x-1)*(2**(p+2)*beta**2-4*beta*g*(1-x)**p+4*beta*
 
 doubleFactor=2**(p+2)*beta**2-4*beta*g*(1-x)**p+4*beta*g*(1+x)**p\
                                       +2**(-p)*g**2*(1-x)**(2*p)+2**(-p)*g**2*(1+x)**(2*p)-2**(1-p)*g**2*(1-x**2)**p
+fac2=-2**(-2*p-2)*(x+1)*(x-1)*(g*(1+x)**p-g*(1-x)**p+2**(p+1)*beta)**2
 
 
 df=diff(rst,x)

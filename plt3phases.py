@@ -100,7 +100,7 @@ for item in ret:
 
 
 # pVals=[0.5,1,1.5,2,2.5,3]
-colors=["blue","red","fuchsia","limegreen","darkorange","dimgrey"]
+colors=["blue","red","limegreen","fuchsia","darkorange","dimgrey"]
 x0=-0.1
 y0=1.1
 fig=plt.figure(figsize=plt.figaspect(3))
@@ -177,11 +177,13 @@ ax2.text(x0, y0, "(b)", transform=ax2.transAxes,
 
 ###plt AB phases
 ax3=fig.add_subplot(3,1,3)
-
+j1=1
 for j in range(0,len(pVals)):
     # plt.plot(gAll/B,ABTensor[:,j],color=colors[j],label="p="+str(pVals[j]))
     #left
     if j==1:
+        # continue
+        ax3.plot(gAll / B, ABTensor[:, j1] + 2, color=colors[j1], label="p=" + str(pVals[j1]))
         continue
     if j==0:
         shiftLeft=0
@@ -199,8 +201,8 @@ for j in range(0,len(pVals)):
     ax3.plot(gAll[gRightInd]/B,ABTensor[gRightInd,j]+shiftRight,color=colors[j])
 
 ###p1=1
-j1=1
-ax3.plot(gAll/B,ABTensor[:,j1]+2,color=colors[j1],label="p="+str(pVals[j1]))
+# j1=1
+# ax3.plot(gAll/B,ABTensor[:,j1]+2,color=colors[j1],label="p="+str(pVals[j1]))
 for j in range(0,len(pVals)):
     if j==1:
         continue

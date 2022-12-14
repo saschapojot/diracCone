@@ -56,12 +56,17 @@ g2ValsAll=np.array(g2ValsAll)
 thetaDp2ValsAll=np.array(inData2.iloc[:,1])
 thetaDp2ValsAll=[thetaDp2ValsAll[j] for j in range(0,len(thetaDp2ValsAll),sep2)]
 thetaDp2ValsAll=np.array(thetaDp2ValsAll)
-# p3=3
-# inFile3="./arbitraryp"+str(p3)+"/true"+"p"+str(p3)+".csv"
-# inData3=pd.read_csv(inFile3)
-# g3ValsAll=np.array(inData3.iloc[:,0])
-# thetaDp3ValsAll=np.array(inData3.iloc[:,1])
-
+p3=3
+inFile3="./arbitraryp"+str(p3)+"/true"+"p"+str(p3)+".csv"
+inData3=pd.read_csv(inFile3)
+g3ValsAll=np.array(inData3.iloc[:,0])
+thetaDp3ValsAll=np.array(inData3.iloc[:,1])
+sep3=5
+g3ValsAll=[g3ValsAll[j] for j in range(0,len(g3ValsAll),sep3)]
+g3ValsAll=np.array(g3ValsAll)
+thetaDp3ValsAll=np.array(inData3.iloc[:,1])
+thetaDp3ValsAll=[thetaDp3ValsAll[j] for j in range(0,len(thetaDp3ValsAll),sep3)]
+thetaDp3ValsAll=np.array(thetaDp3ValsAll)
 
 
 
@@ -73,7 +78,7 @@ ax1.scatter(g1ValsAll/B,thetaDp1ValsAll/np.pi,color="red",s=5)
 ax1.plot(gVals/B,thDp2,label="$p=2$",color="green",linewidth=1.5)
 ax1.scatter(g2ValsAll/B,thetaDp2ValsAll/np.pi,color="green",s=5)
 ax1.plot(gVals/B,thDp3,label="$p=3$",color="blue",linewidth=1.5)
-# ax1.scatter(g3ValsAll/B,thetaDp3ValsAll/np.pi,color="blue",s=5)
+ax1.scatter(g3ValsAll/B,thetaDp3ValsAll/np.pi,color="blue",s=5)
 xTicks=np.arange(-10,12,2)
 ax1.set_xticks(xTicks)
 ax1.set_ylim((-2,2))

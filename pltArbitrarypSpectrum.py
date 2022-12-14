@@ -66,8 +66,8 @@ def x2E(p,betaVal,gVal,x):
 
 
 
-gVal=-2.5*B
-p=0
+gVal=2.5*B
+p=1.2
 k1=0
 k2ValsAll=list(np.linspace(-0.1*np.pi,0.1*np.pi,100))
 # k2ValsAll.append(0)

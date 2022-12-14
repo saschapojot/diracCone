@@ -15,12 +15,16 @@ plt.plot([0,r],[0,0],color="black",linewidth=0.5)
 alpha=np.pi/10
 plt.plot([0,r*np.cos(alpha)],[0,r*np.sin(alpha)],color="black",linewidth=0.5)
 s=r/1.5
-plt.text(s*np.cos(alpha/2),s*np.sin(alpha/2),"$\phi$")
+plt.text(s*np.cos(alpha/3),s*np.sin(alpha/3),"$\lambda$")
 
 ax.set_aspect(1)
-Dp=plt.scatter(0,0,color="black",s=15,label="Dirac point")
+
+#O
+Dp=plt.scatter(0,0,color="black",s=15,label="Origin")
 
 dis=0.2
+
+
 #W
 plt.scatter(-r,0,s=16,color="red")
 plt.text(-r-dis,0,"W",fontsize=ftSize)
@@ -79,6 +83,6 @@ plt.yticks([0])
 plt.xlabel("$k_{1}$",fontsize=ftSize)
 plt.ylabel("$k_{2}$",fontsize=ftSize)
 # plt.legend(loc="best")
-plt.legend([arr3,arr1,Dp],["beam 1","beam 2","Dirac point"])
+plt.legend([arr3,arr1,Dp],["Path SWN","Path SEN","Origin"])
 plt.title("Dynamical path",fontsize=ftSize)
-plt.savefig("conePath.png")
+plt.savefig("conePath.pdf")
