@@ -106,4 +106,4 @@ ax3.elev = 7
 
 
 
-plt.savefig("3surfacesRow.pdf")
+plt.savefig("3surfacesRow.png")
