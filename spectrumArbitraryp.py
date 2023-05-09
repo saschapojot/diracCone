@@ -68,7 +68,7 @@ def solution(p,k1Val,k2Val,gVal):
         success=sol.success# if the above numerical procesure is successful
         funVal=sol.fun[0]
         # if success is True
-        if success and np.abs(funVal)<1e-10:
+        if success:
             solutionSet.add(round(sol.x[0],8))#round the solution to the first 8 decimals, add this truncated value to the solutionSet. Different initial values of x0 may lead to repeated solutions, this repeatition is eliminated by set.
 
     return list(solutionSet)#return the values of x as a list
