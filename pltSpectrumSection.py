@@ -174,42 +174,42 @@ smallK2All=np.arange(-end,end+dk2Small,dk2Small)*np.pi#all values of k2
 ##################################################################
 #open this part if |g|>2B, otherwise this part is commented
 #perturbative solutions
-# g=2.5*B
-# ESmallK2Plus=[]
-# k2Plus=[]
-# ESmallK2Minus=[]
-# k2Minus=[]
-# tPerturbativeStart=datetime.now()
-# for k2 in smallK2All:
-#     signalPlus,EPlus=EPerturbative(p,k2,g,1)
-#     if signalPlus:
-#         ESmallK2Plus.append(EPlus)
-#         k2Plus.append(k2/np.pi)
-#     signalMinus,EMinus=EPerturbative(p,k2,g,-1)
-#     if signalMinus:
-#         ESmallK2Minus.append(EMinus)
-#         k2Minus.append(k2/np.pi)
-#
-#
-# tPerturbativeEnd=datetime.now()
-# print("perturbative time: ",tPerturbativeEnd-tPerturbativeStart)
-#
-# ESmallK2Plus=np.array(ESmallK2Plus)
-# ESmallK2Minus=np.array(ESmallK2Minus)
+g=2.5*B
+ESmallK2Plus=[]
+k2Plus=[]
+ESmallK2Minus=[]
+k2Minus=[]
+tPerturbativeStart=datetime.now()
+for k2 in smallK2All:
+    signalPlus,EPlus=EPerturbative(p,k2,g,1)
+    if signalPlus:
+        ESmallK2Plus.append(EPlus)
+        k2Plus.append(k2/np.pi)
+    signalMinus,EMinus=EPerturbative(p,k2,g,-1)
+    if signalMinus:
+        ESmallK2Minus.append(EMinus)
+        k2Minus.append(k2/np.pi)
+
+
+tPerturbativeEnd=datetime.now()
+print("perturbative time: ",tPerturbativeEnd-tPerturbativeStart)
+
+ESmallK2Plus=np.array(ESmallK2Plus)
+ESmallK2Minus=np.array(ESmallK2Minus)
 #########################################################
 ########################################################
 ##open this part if  |g|<=2B, otherwise this part is commented
-g=2*B
-if g>0 and g<=2*B:
-    x0=-1
-if g<0 and g>=-2*B:
-    x0=1
-
-k1=0
-k2=0
-betaVal=beta(k1,k2)
-ERedPoint=x2E(p,betaVal,g,x0)# plot the point at the origin
-
+# g=2*B
+# if g>0 and g<=2*B:
+#     x0=-1
+# if g<0 and g>=-2*B:
+#     x0=1
+#
+# k1=0
+# k2=0
+# betaVal=beta(k1,k2)
+# ERedPoint=x2E(p,betaVal,g,x0)# plot the point at the origin
+#
 
 #######################################################
 inDir="./spectrump"+str(p)+"/"
@@ -235,15 +235,15 @@ ax.text(x1,y1,"(d)",transform=ax.transAxes,
 ##############################################################
 # plot perturbative results of eigenenergy using red dots, use this part if |g|>2B, otherwise this part is commented
 
-# ax.scatter(k2Plus,ESmallK2Plus/B,color="red",s=25)
-# ax.scatter(k2Minus,ESmallK2Minus/B,color="red",s=25)
-# print(k2Plus)
-# print(ESmallK2Plus)
-# print(k2Minus)
-# print(ESmallK2Minus)
+ax.scatter(k2Plus,ESmallK2Plus/B,color="red",s=25)
+ax.scatter(k2Minus,ESmallK2Minus/B,color="red",s=25)
+print(k2Plus)
+print(ESmallK2Plus)
+print(k2Minus)
+print(ESmallK2Minus)
 ################################
 # plot perturbative results of eigenenergy using red dots, use this part if |g|<=2B, otherwise this part is commented
-ax.scatter(0,ERedPoint/B,color="red",s=25)
+# ax.scatter(0,ERedPoint/B,color="red",s=25)
 ##############################################
 
 plt.savefig(inDir+"g"+str(g/B)+"B.pdf")
